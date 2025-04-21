@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useUser } from "@/context/user-context"; // Adjust the import path
+import { useUser } from "@/context/user-context";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "./ui/button";
@@ -36,11 +36,12 @@ const Header = () => {
     }, 700);
   };
 
+  // Handle logout
   const handleLogout = async () => {
     try {
       setLoading(prev => ({ ...prev, logout: true, page: true }));
 
-      const res = await fetch("http://localhost:8005/api/auth/sign-out", {
+      const res = await fetch("https://your-tech-stories-backend.onrender.com/api/auth/sign-out", {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -65,7 +66,7 @@ const Header = () => {
       setLoading({ login: false, signup: false, logout: false, page: false });
     }
   };
-
+ 
   const handleCreate = () => {
     if (user) {
       handleRoutePush("/create-blog", "login");

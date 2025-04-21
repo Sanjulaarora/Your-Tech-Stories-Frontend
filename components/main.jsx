@@ -14,12 +14,14 @@ const filters = [
 ];
 
 export default function Main() {
-    const { data, isLoading, fetchError } = useAxiosFetch('http://localhost:8005/api/blog/get-blogs');
+    const { data, isLoading, fetchError } = useAxiosFetch("https://your-tech-stories-backend.onrender.com/api/blog/get-blogs");
     const blogs = data?.blogs || [];
 
+    // Filter and search states
     const [selectedFilter, setSelectedFilter] = useState("All");
     const [search, setSearch] = useState("");
 
+    // Handle filter and search
     const filteredBlogs = blogs.filter((blog) => {
         const matchesCategory = selectedFilter === "All" || blog.category?.toLowerCase() === selectedFilter.toLowerCase();
         const matchesAuthor = blog.authorName?.toLowerCase().includes(search.toLowerCase());
@@ -34,7 +36,7 @@ export default function Main() {
                     <li 
                       key={index}
                       className={`px-4 py-2 rounded-2xl text-white font-semibold cursor-pointer
-                        ${selectedFilter === filter.name ? 'bg-amber-400' : 'bg-gray-600 hover:bg-amber-400'}`}
+                        ${selectedFilter === filter.name ? "bg-amber-400" : "bg-gray-600 hover:bg-amber-400"}`}
                       onClick={() => setSelectedFilter(filter.name)}
                     >
                     {filter.name}
@@ -58,6 +60,7 @@ export default function Main() {
                 </form>
             </div>
             
+            {/* All the blogs are rendered here */}
             <Suspense fallback={<div>Loading Blogs...</div>}>
                 { isLoading && <p className="text-center font-bold text-sm md:text-base mt-8">Loading Blogs...</p>}
                 { !isLoading && fetchError && <p className="text-center font-bold text-sm md:text-base">{fetchError}</p>}
@@ -83,7 +86,7 @@ export default function Main() {
                 <>
                     <p className="text-center text-lg text-amber-300 font-bold my-30">
                         {selectedFilter && selectedFilter !== "All"
-                            ? `No blogs found for "${selectedFilter}".`
+                            ? `No blogs found for ${selectedFilter}.`
                             : "No Blog Available. Add a new blog right now!"
                         }
                     </p>

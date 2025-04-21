@@ -3,12 +3,12 @@
 import React, { useState } from "react";
 import useAxiosFetch from "@/hooks/useAxiosFetch";
 import { useParams, useRouter } from "next/navigation";
-import { useUser } from "@/context/user-context"; // adjust path if needed
+import { useUser } from "@/context/user-context";
 
 export default function BlogPage() {
   const { id } = useParams();
   const router = useRouter();
-  const { data, isLoading, fetchError } = useAxiosFetch("http://localhost:8005/api/blog/get-blogs");
+  const { data, isLoading, fetchError } = useAxiosFetch("https://your-tech-stories-backend.onrender.com/api/blog/get-blogs");
   const blogs = data?.blogs || [];
 
   const { user } = useUser(); // Get the current user from context (contains full user data)
@@ -16,11 +16,12 @@ export default function BlogPage() {
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [loadingEdit, setLoadingEdit] = useState(false);
 
+  // Handle delete
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete the blog?")) {
       try {
         setLoadingDelete(true);
-        const res = await fetch(`http://localhost:8005/api/blog/delete-blog/${id}`, {
+        const res = await fetch(`https://your-tech-stories-backend.onrender.com/api/blog/delete-blog/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -46,7 +47,7 @@ export default function BlogPage() {
     setLoadingEdit(true);
     setTimeout(() => {
       router.push(`/edit-blog/${id}`);
-    }, 500); // just for UX, you can remove the delay if not needed
+    }, 500);
   };
 
   const blog = blogs.find((blog) => blog._id?.toString() === id?.toString());

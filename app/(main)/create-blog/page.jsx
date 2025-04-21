@@ -1,4 +1,4 @@
-import CreateBlog from '@/components/create-blog';
+import CreateBlog from "@/components/create-blog";
 
 export default function page () {
   return(

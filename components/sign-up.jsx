@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function SignUp () {
   const router = useRouter();
@@ -28,6 +28,7 @@ export default function SignUp () {
     }));
   };
 
+  // Handle sign up
   const signUpUser = async (e) => {
     e.preventDefault();
     const { name, number, email, password, passwordAgain } = signUpData;
@@ -35,7 +36,7 @@ export default function SignUp () {
     setLoading({ signingUp: true, redirecting: false });
 
     try {
-      const res = await fetch("http://localhost:8005/api/auth/sign-up", {
+      const res = await fetch("https://your-tech-stories-backend.onrender.com/api/auth/sign-up", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

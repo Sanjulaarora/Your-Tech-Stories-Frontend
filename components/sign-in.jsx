@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from 'next/link';
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useUser } from "@/context/user-context"; // Adjust the import path
+import { useUser } from "@/context/user-context";
 
 export default function SignIn() {
   const { setUser } = useUser();
@@ -27,6 +27,7 @@ export default function SignIn() {
     }));
   };
 
+  // Handle sign in
   const signInUser = async (e) => {
     e.preventDefault();
     const { email, password } = signInData;
@@ -34,7 +35,7 @@ export default function SignIn() {
     setLoading({ signingIn: true, page: false });
 
     try {
-      const res = await fetch("http://localhost:8005/api/auth/sign-in", {
+      const res = await fetch("https://your-tech-stories-backend.onrender.com/api/auth/sign-in", {
         method: "POST",
         credentials: "include",
         headers: {
